@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="candidatDao" class="inpt.dahchour.offre.DAO.DAOCandidatImp">
+		<property name="dataSource" ref="datasource"></property>
+	</bean>
+	<bean id="entrepriseDao"  class="inpt.dahchour.offre.DAO.DAOEntrepriseImp">
+		<property name="dataSource" ref="datasource"></property>
+	</bean>
+	<bean id="offreDao" class="inpt.dahchour.offre.DAO.DAOoffreImp">
+		<property name="dataSource" ref="datasource"/>
+	</bean>
+	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/offre_emploie"/>
+		<property name="username" value="root"/>
+		<property name="password" value=""/>
+	</bean>
+	<bean id="offmanager" class="inpt.dahchour.offre.Managers.OffreManager">
+		<property name="daooffre" ref="offreDao"/>
+	</bean>
+	<bean id="canmanager" class="inpt.dahchour.offre.Managers.CandidatManager">
+		<property name="daocandidat" ref="candidatDao"/>
+	</bean>
+	<bean id="entrmanager" class="inpt.dahchour.offre.Managers.EntrepriseManager">
+		<property name="daoentreprise" ref="entrepriseDao"/>
+	</bean>
+	<context:component-scan base-package="inpt.dahchour.offre.Managers" />
+		
+	
+</beans>
